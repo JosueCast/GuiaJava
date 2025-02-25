@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package presentacion;
+import entidades.Categoria;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
+import negocio.CategoriaControl;
+
 
 /**
  *
@@ -13,9 +18,29 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     /**
      * Creates new form FrmCategoria
      */
+    
+    private final CategoriaControl CONTROL;
+    
     public FrmCategoria() {
         initComponents();
+        this.CONTROL = new CategoriaControl();
+         this.listar("");
     }
+    
+     private void listar(String texto) {
+        tablaListado.setModel(this.CONTROL.listar(texto));
+        lblCantidadRegistro.setText("Mostrar "
+                + this.CONTROL.totalMostrados()
+                + " de un total de "
+                + this.CONTROL.total()
+        );
+    }
+
+//    private void limpiar() {
+//        txtNombre.setText("");
+//        txtDescripcion.setText("");
+//        this.accion = "Guardar";
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,26 +51,136 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        tfBuscar = new javax.swing.JTextField();
+        BtnBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaListado = new javax.swing.JTable();
+        lblCantidadRegistro = new javax.swing.JLabel();
+        BtnNuevo = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setResizable(true);
         setTitle("Categoria");
+
+        jTabbedPane3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 667, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 507, Short.MAX_VALUE)
+        );
+
+        jTabbedPane3.addTab("Mantenimiento", jPanel4);
+
+        jLabel1.setText("Nombre");
+
+        BtnBuscar.setText("Buscar");
+        BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarActionPerformed(evt);
+            }
+        });
+
+        tablaListado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tablaListado);
+
+        lblCantidadRegistro.setText("jLabel2");
+
+        BtnNuevo.setText("Nuevo");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BtnNuevo)
+                .addContainerGap(213, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblCantidadRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnBuscar)
+                    .addComponent(BtnNuevo))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(lblCantidadRegistro)
+                .addContainerGap(89, Short.MAX_VALUE))
+        );
+
+        jTabbedPane3.addTab("Lista", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addComponent(jTabbedPane3)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
+        this.listar(tfBuscar.getText());
+    }//GEN-LAST:event_BtnBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnBuscar;
+    private javax.swing.JButton BtnNuevo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane3;
+    private javax.swing.JLabel lblCantidadRegistro;
+    private javax.swing.JTable tablaListado;
+    private javax.swing.JTextField tfBuscar;
     // End of variables declaration//GEN-END:variables
+
+    
+    
 }
