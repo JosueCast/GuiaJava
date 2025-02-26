@@ -90,7 +90,7 @@ public class CategoriaControl {
     }
 
     public String desactivar(int id) {
-        if (DATOS.offVaraible(id)) {;
+        if (DATOS.offVaraible(id)) {
             return "OK";
         } else {
             return "No se puede desactivar el registro";

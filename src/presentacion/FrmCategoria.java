@@ -66,6 +66,8 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         lblCantidadRegistro = new javax.swing.JLabel();
         BtnNuevo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        btnActivar = new javax.swing.JButton();
+        btnDesactivar = new javax.swing.JButton();
         ddd = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -121,29 +123,48 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
             }
         });
 
+        btnActivar.setText("Activar");
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivarActionPerformed(evt);
+            }
+        });
+
+        btnDesactivar.setText("Desactivar");
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(BtnNuevo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEditar)
-                .addContainerGap(129, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnNuevo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnEditar))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblCantidadRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(150, 150, 150)
+                                .addComponent(btnActivar)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnDesactivar)))
+                        .addGap(0, 123, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblCantidadRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,9 +178,13 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
                     .addComponent(btnEditar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(lblCantidadRegistro)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCantidadRegistro)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnActivar)
+                        .addComponent(btnDesactivar)))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         tabGeneral.addTab("Lista", jPanel3);
@@ -344,6 +369,56 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+          if (tablaListado.getSelectedRowCount() == 1) {
+            String id = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 0));
+
+            String nombre = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 1));
+
+            if (JOptionPane.showConfirmDialog(this,
+                    "Deshabilitar el registro " + nombre,
+                    "Desactivar",
+                    JOptionPane.YES_NO_OPTION) == 0) {
+
+                String resp = this.CONTROL.desactivar(Integer.parseInt(id));
+                if (resp.equals("Ok")) {
+                    this.mensajeOK("El registro se desactivo");
+                    this.listar("");
+                } else {
+                    mensajeOK(resp);
+                }
+
+            } else {
+                mensajeError("Seleciona un registro");
+            }
+        }
+    }//GEN-LAST:event_btnDesactivarActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        if (tablaListado.getSelectedRowCount() == 1) {
+            String id = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 0));
+
+            String nombre = String.valueOf(tablaListado.getValueAt(tablaListado.getSelectedRow(), 1));
+
+            if (JOptionPane.showConfirmDialog(this,
+                    "Deshabilitar el registro " + nombre,
+                    "Desactivar",
+                    JOptionPane.YES_NO_OPTION) == 0) {
+
+                String resp = this.CONTROL.activar(Integer.parseInt(id));
+                if (resp.equals("Ok")) {
+                    this.mensajeOK("El registro se activo");
+                    this.listar("");
+                } else {
+                    mensajeOK(resp);
+                }
+
+            } else {
+                mensajeError("Selecionae un registro");
+            }
+        }  
+    }//GEN-LAST:event_btnActivarActionPerformed
     
     private void mensajeError(String mensaje){
         JOptionPane.showMessageDialog(this,mensaje,"Sistema",JOptionPane.ERROR);
@@ -358,6 +433,8 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton BtnCancelar;
     private javax.swing.JButton BtnNuevo;
+    private javax.swing.JButton btnActivar;
+    private javax.swing.JButton btnDesactivar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JPanel ddd;
