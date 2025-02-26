@@ -3,9 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package presentacion;
-import entidades.Categoria;
 import javax.swing.JOptionPane;
-import javax.swing.table.TableRowSorter;
 import negocio.CategoriaControl;
 
 
@@ -20,11 +18,15 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
      */
     
     private final CategoriaControl CONTROL;
+    private String accion;
+    
     
     public FrmCategoria() {
         initComponents();
         this.CONTROL = new CategoriaControl();
-         this.listar("");
+        this.listar("");
+        tabGeneral.setEnabledAt(1, false);
+        this.accion = "Guardar";
     }
     
      private void listar(String texto) {
@@ -36,11 +38,11 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         );
     }
 
-//    private void limpiar() {
-//        txtNombre.setText("");
-//        txtDescripcion.setText("");
-//        this.accion = "Guardar";
-//    }
+    private void limpiar() {
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+        this.accion = "Guardar";
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,8 +54,7 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
-        jPanel4 = new javax.swing.JPanel();
+        tabGeneral = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfBuscar = new javax.swing.JTextField();
@@ -62,6 +63,15 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         tablaListado = new javax.swing.JTable();
         lblCantidadRegistro = new javax.swing.JLabel();
         BtnNuevo = new javax.swing.JButton();
+        ddd = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
+        btnGuardar = new javax.swing.JButton();
+        BtnCancelar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
@@ -70,20 +80,7 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Categoria");
 
-        jTabbedPane3.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 667, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 507, Short.MAX_VALUE)
-        );
-
-        jTabbedPane3.addTab("Mantenimiento", jPanel4);
+        tabGeneral.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("Nombre");
 
@@ -107,6 +104,11 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         lblCantidadRegistro.setText("jLabel2");
 
         BtnNuevo.setText("Nuevo");
+        BtnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnNuevoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -146,17 +148,84 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
                 .addContainerGap(89, Short.MAX_VALUE))
         );
 
-        jTabbedPane3.addTab("Lista", jPanel3);
+        tabGeneral.addTab("Lista", jPanel3);
+
+        jLabel2.setText("Nombre: ");
+
+        jLabel3.setText("Descripcion:");
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane2.setViewportView(txtDescripcion);
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        BtnCancelar.setText("Cancelar");
+        BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCancelarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("(*) Campo obligatorio");
+
+        javax.swing.GroupLayout dddLayout = new javax.swing.GroupLayout(ddd);
+        ddd.setLayout(dddLayout);
+        dddLayout.setHorizontalGroup(
+            dddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dddLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(dddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(31, 31, 31)
+                .addGroup(dddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(dddLayout.createSequentialGroup()
+                        .addComponent(btnGuardar)
+                        .addGap(129, 129, 129)
+                        .addComponent(BtnCancelar))
+                    .addGroup(dddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtNombre)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)))
+                .addContainerGap(177, Short.MAX_VALUE))
+        );
+        dddLayout.setVerticalGroup(
+            dddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dddLayout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addGroup(dddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(86, 86, 86)
+                .addGroup(dddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(24, 24, 24)
+                .addGroup(dddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar)
+                    .addComponent(BtnCancelar))
+                .addContainerGap(154, Short.MAX_VALUE))
+        );
+
+        tabGeneral.addTab("Mantenimiento", ddd);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3)
+            .addComponent(tabGeneral)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane3)
+            .addComponent(tabGeneral)
         );
 
         pack();
@@ -166,19 +235,79 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         this.listar(tfBuscar.getText());
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
+    private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
+        tabGeneral.setEnabledAt(1,true);
+        tabGeneral.setEnabledAt(0,false);
+        tabGeneral.setSelectedIndex(1);
+        this.accion = "Guardar";
+        btnGuardar.setText("Guardar");
+        
+        
+    }//GEN-LAST:event_BtnNuevoActionPerformed
+
+    private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+
+        tabGeneral.setEnabledAt(0,true);
+        tabGeneral.setEnabledAt(1,false);
+        tabGeneral.setSelectedIndex(0);
+        this.limpiar();
+
+    }//GEN-LAST:event_BtnCancelarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        if(txtNombre.getText().length()  == 0 ){
+        JOptionPane.showMessageDialog(this,"Nombre es obligatorio","Sistema",JOptionPane.WARNING_MESSAGE);
+        txtNombre.requestFocus();
+        return;
+        }
+        String respuesta;
+        if(this.accion.equals("Editar")){
+        //editar
+        }else{
+            //guardar
+            
+            respuesta = this.CONTROL.Insertar(txtNombre.getText(), txtDescripcion.getText());
+            if (respuesta.equals("OK")) {
+                this.mensajeOK("Registrado Correctamente");
+                this.limpiar();
+                this.listar("");
+            } else {
+                this.mensajeError(respuesta);
+            }
+        }
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
+    
+    private void mensajeError(String mensaje){
+        JOptionPane.showMessageDialog(this,mensaje,"Sistema",JOptionPane.ERROR);
+    }
+    
+    private void mensajeOK(String mensaje){
+        JOptionPane.showMessageDialog(this,mensaje,"Sistema",JOptionPane.INFORMATION_MESSAGE);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;
+    private javax.swing.JButton BtnCancelar;
     private javax.swing.JButton BtnNuevo;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JPanel ddd;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JLabel lblCantidadRegistro;
+    private javax.swing.JTabbedPane tabGeneral;
     private javax.swing.JTable tablaListado;
     private javax.swing.JTextField tfBuscar;
+    private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
     
